@@ -1,21 +1,23 @@
-function getPossiblePositions(x, y){
-    let arr = [
-        { x: x + 1, y: y + 2},
-        { x: x + 2, y: y + 1},
-        { x: x - 1, y: y + 2},
-        { x: x - 2, y: y + 1},
-        { x: x - 1, y: y - 2},
-        { x: x - 2, y: y - 1},
-        { x: x + 1, y: y - 2},
-        { x: x + 2, y: y - 1}
-    ]
+import { knight } from "./chess/pieces/pieces.js";
+import { pathFinder } from "./chess/path-finder.js";
+import { Vector2 } from "./utils/vector2.js";
 
-    return arr.filter(item => {
-        let x = item.x;
-        let y = item.y;
+const size = 8;
+const from = new Vector2(0, 0);
+const target = new Vector2(3,3);
 
-        return (x < 8) && ( x >= 0) && (y < 8) && (y >= 0);
-    });
+
+function knightMoves(start, to){
+    const from = new Vector2(start[0], start[1]);
+    const target = new Vector2(to[0],to[1]);
+
+    let path = pathFinder.findPath(size, knight, from, target);
+
+
+    return path.map(vector => vector.toArray());
 }
 
-console.log(getPossiblePositions(0, 0));
+console.log("Move 1", knightMoves([0,0],[3,3]));
+console.log("Move 2", knightMoves([3,3],[0,0]));
+console.log("Move 3", knightMoves([0,0],[7,7]));
+console.log("Move 4", knightMoves([3,3],[4,3]));
