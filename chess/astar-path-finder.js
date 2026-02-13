@@ -40,7 +40,7 @@ const aStarPathFinder = (
                 for(let neighbor of neighbors){
                     if(neighbor.isVisited) continue;
 
-                    let possibleGCost = currentNode.gCost + Vector2.getDistance(currentNode.position, neighbor.position);
+                    let possibleGCost = currentNode.gCost + 1;
 
                     if(!openNodes.includes(neighbor) || possibleGCost < neighbor.gCost){
                         neighbor.gCost = possibleGCost;

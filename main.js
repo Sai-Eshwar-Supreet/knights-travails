@@ -11,7 +11,7 @@ function knightMoves(start, to){
     const from = new Vector2(start[0], start[1]);
     const target = new Vector2(to[0],to[1]);
 
-    let path = bfsPathFinder.findPath(size, knight, from, target);
+    let path = aStarPathFinder.findPath(size, knight, from, target);
 
 
     return path.map(vector => vector.toArray());
