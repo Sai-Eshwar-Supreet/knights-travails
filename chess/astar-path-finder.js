@@ -1,10 +1,16 @@
 import { Vector2 } from "../utils/vector2.js";
+import { AStarNode } from "./astar-node.js";
 import { ChessGrid } from "./chess-grid.js";
 
-const pathFinder = (
+const aStarPathFinder = (
     function(){
+
+        function createNode(position){
+            return new AStarNode(position)
+        }
+
         function findPath(gridSize, piece, start, target){
-            const grid = new ChessGrid(gridSize);
+            const grid = new ChessGrid(gridSize, createNode);
             const openNodes = [];
         
             openNodes.push(grid.getNodeAt(start));
@@ -61,8 +67,8 @@ const pathFinder = (
             return arr.reverse();
         }
 
-        return { findPath }
+        return { findPath, createNode }
     }
 )();
 
-export { pathFinder }
+export { aStarPathFinder }

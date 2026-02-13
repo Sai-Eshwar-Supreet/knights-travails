@@ -1,27 +1,30 @@
 import { Vector2 } from "../utils/vector2.js";
-import { Node } from "./node.js";
 
 class ChessGrid{
     #size;
     #grid;
     
     
-    constructor(size = 8){
+    constructor(size = 8, createNode){
         this.#size = size;
-        this.initialize();
+        this.initialize(createNode);
     }
     
     get size(){
         return this.#size;
     }
     
-    initialize(){
+    initialize(createNode){
+        if(typeof createNode !== 'function'){
+            throw TypeError("Expects createNode to be a function");
+        }
+
         this.#grid = [];
         const size = this.#size;
         for(let x = 0; x < size; x ++){
             const col = [];
             for(let y = 0; y < size; y++){
-                const node = new Node(new Vector2(x, y));
+                const node = createNode(new Vector2(x, y));
                 col.push(node);
             }
             this.#grid.push(col);
@@ -34,8 +37,12 @@ class ChessGrid{
 
     getValidMoveNodes(piece, from){
         const neighbors = [];
-        const possiblePositions = piece.getPossiblePositions(from).filter(point => 
-            (point.x >= 0) && (point.x < this.#size) && (point.y >= 0) && (point.y < this.#size));
+        const possiblePositions = piece.getPossiblePositions(from).filter(point => (
+            (point.x >= 0) && 
+            (point.x < this.#size) && 
+            (point.y >= 0) && 
+            (point.y < this.#size)
+        ));
 
         for(let pos of possiblePositions){
             neighbors.push(this.#grid[pos.x][pos.y]);

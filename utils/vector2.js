@@ -15,7 +15,7 @@ class Vector2{
     }
 
     toEqual(vector){
-        return (this.x === vector.x) && (this.y === vector.y);
+        return ((this.x === vector.x) && (this.y === vector.y));
     }
 
     static getManhattanDistance(pointA, pointB){

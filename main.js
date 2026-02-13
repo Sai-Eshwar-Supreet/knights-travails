@@ -1,17 +1,17 @@
 import { knight } from "./chess/pieces/pieces.js";
-import { pathFinder } from "./chess/path-finder.js";
 import { Vector2 } from "./utils/vector2.js";
+import { bfsPathFinder } from "./chess/bfs-path-finder.js";
+import { dfsPathFinder } from "./chess/dfs-path-finder.js";
+import { aStarPathFinder } from "./chess/astar-path-finder.js";
 
 const size = 8;
-const from = new Vector2(0, 0);
-const target = new Vector2(3,3);
 
 
 function knightMoves(start, to){
     const from = new Vector2(start[0], start[1]);
     const target = new Vector2(to[0],to[1]);
 
-    let path = pathFinder.findPath(size, knight, from, target);
+    let path = bfsPathFinder.findPath(size, knight, from, target);
 
 
     return path.map(vector => vector.toArray());
